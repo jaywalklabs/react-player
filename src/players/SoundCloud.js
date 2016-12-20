@@ -1,9 +1,6 @@
 import React from 'react'
-import fetchJSONP from 'fetch-jsonp'
-
 import FilePlayer from './FilePlayer'
 import { defaultProps } from '../props'
-import axios from 'axios'
 
 const RESOLVE_URL = '//api.soundcloud.com/resolve.json'
 const MATCH_URL = /^https?:\/\/(soundcloud.com|snd.sc)\/([a-z0-9-_]+\/[a-z0-9-_]+)$/
