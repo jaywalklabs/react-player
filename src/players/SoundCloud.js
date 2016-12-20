@@ -34,8 +34,6 @@ export default class SoundCloud extends FilePlayer {
         } else {
           this.props.onError(new Error('SoundCloud track could not be resolved'))
         }
-      }).catch(err=>{
-        this.props.onError(new Error('SoundCloud track could not be resolved'))
       })
   }
   load (url) {
