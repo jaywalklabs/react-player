@@ -3,6 +3,7 @@ import fetchJSONP from 'fetch-jsonp'
 
 import FilePlayer from './FilePlayer'
 import { defaultProps } from '../props'
+import axios from 'axios'
 
 const RESOLVE_URL = '//api.soundcloud.com/resolve.json'
 const MATCH_URL = /^https?:\/\/(soundcloud.com|snd.sc)\/([a-z0-9-_]+\/[a-z0-9-_]+)$/
@@ -28,14 +29,16 @@ export default class SoundCloud extends FilePlayer {
     if (songData[url]) {
       return Promise.resolve(songData[url])
     }
-    return fetchJSONP(RESOLVE_URL + '?url=' + url + '&client_id=' + this.clientId)
+    return window.fetch(RESOLVE_URL + '?url=' + url + '&client_id=' + this.clientId)
       .then(response => {
-        if (response.ok) {
+        if (response.status === 200) {
           songData[url] = response.json()
           return songData[url]
         } else {
           this.props.onError(new Error('SoundCloud track could not be resolved'))
         }
+      }).catch(err=>{
+        this.props.onError(new Error('SoundCloud track could not be resolved'))
       })
   }
   load (url) {
